@@ -14,5 +14,6 @@ export default defineConfig({
   styles: [commonLess],
   navs,
   favicon: '/favicon.ico',
+  logo: '/favicon.ico',
   // more config: https://d.umijs.org/config
 });
