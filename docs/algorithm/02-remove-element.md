@@ -14,6 +14,8 @@
 
 你不需要考虑数组中超出新长度后面的元素。
 
+[力扣题目链接](https://leetcode-cn.com/problems/remove-element/submissions/)
+
 ```javascript
 /**
  * @param {number[]} nums
