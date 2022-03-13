@@ -1,6 +1,5 @@
 import chalk from 'chalk';
 import { fileURLToPath } from 'url';
-import { readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { execaCommand } from 'execa';
 import { NodeSSH } from 'node-ssh';
