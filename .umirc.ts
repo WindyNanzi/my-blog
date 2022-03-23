@@ -4,7 +4,7 @@ import { resolve } from 'path';
 import navs from './config/navs';
 
 const commonLess = readFileSync(
-  resolve(__dirname, './config/style.less'),
+  resolve(__dirname, './config/style.css'),
 ).toString();
 
 export default defineConfig({
