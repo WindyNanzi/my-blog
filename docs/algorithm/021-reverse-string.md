@@ -16,12 +16,10 @@
  * @return {void} Do not return anything, modify s in-place instead.
  */
 var reverseString = function(s) {
-  let len = s.length, i = 0, j = len - 1, temp = null
+  let i = 0, j = s.length - 1
 
   while(i < j) {
-    temp = s[i]
-    s[i] = s[j]
-    s[j] = temp
+    [s[i], s[j]] = [s[j], s[i]]
     i ++
     j --
   }
