@@ -59,3 +59,77 @@ var reverseWords = function(s) {
 reverseWords("  hello world  ")
 reverseWords("a good   example")
 ```
+
+双指针法
+```javascript
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function(s) {
+  const strArr = Array.from(s)
+  removeExtraSpaces(strArr)
+
+  reverse(strArr)
+
+  let start = 0
+  for(let end = 0; end <= strArr.length; end++) {
+    if(isBlankSpace(strArr[end]) || end === strArr.length){
+      reverse(strArr, start, end - 1)
+      start = end + 1
+    }
+  }
+
+  // console.log(strArr.join(''))
+  return strArr.join('')
+}
+
+/**
+ * 判断是否为空格
+ * @param {String} char 
+ * @returns Boolean
+ */
+function isBlankSpace(char) {
+  return char === ' ' || char === ' '
+}
+
+/**
+ * 移除多余空格
+ * @param {Array} arr 
+ */
+function removeExtraSpaces(arr) {
+  let fast = 0, slow = 0
+  const len = arr.length
+
+  // 清除前面的空格与多余空格
+  while(fast < len) {
+    if(isBlankSpace(arr[fast]) && (fast === 0 || isBlankSpace(arr[fast - 1]))) {
+      fast ++
+    } else {
+      arr[slow] = arr[fast]
+      fast ++
+      slow ++
+    }
+  }
+ 
+  // 清除最后一个空格
+  if(isBlankSpace(arr[slow - 1])) { slow -- }
+
+  // 数组的真实长度
+  arr.length = slow
+}
+
+/**
+ * 反转数组中的指定位置的元素
+ * @param {Arrray} arr 
+ * @param {Number} start 
+ * @param {Number} end 
+ */
+function reverse(arr, start = 0, end = arr.length - 1) {
+  while(start < end) {
+    [arr[start], arr[end]] = [arr[end], arr[start]]
+    start ++
+    end --
+  }
+}
+```
