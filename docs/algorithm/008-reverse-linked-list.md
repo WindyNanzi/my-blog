@@ -25,3 +25,25 @@ var reverseList = function (head) {
   return res;
 };
 ```
+
+双指针方法
+```javascript
+var reverseList = function(head) {
+  if(!head || !head.next) return head
+
+  let temp = null, pre = null, cur = head
+  while(cur) {
+    // 取出当前链表后半截
+    temp = cur.next
+    // 让当前链表头节点指向已取出的前半截链表
+    cur.next = pre
+    // 更新取出的前半截链表
+    pre = cur
+    // 当前链表执行后半截
+    cur = temp
+  }
+
+  // console.log(pre)
+  return pre
+}
+```
