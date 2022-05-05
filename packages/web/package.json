@@ -10,6 +10,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@arco-design/web-vue": "^2.26.0",
     "@vueuse/core": "^8.2.5",
     "@vueuse/head": "^0.7.6",
     "prism-theme-vars": "^0.2.2",

@@ -10,6 +10,7 @@ import Unocss from 'unocss/vite'
 import Markdown from 'vite-plugin-md'
 import Prism from 'markdown-it-prism'
 import LinkAttributes from 'markdown-it-link-attributes'
+import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 
 const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
 
@@ -38,6 +39,10 @@ export default defineConfig({
 
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({
+      dirs: [
+        { dir: 'src/pages', baseRoute: '' },
+        { dir: 'src/docs', baseRoute: 'docs' },
+      ],
       extensions: ['vue', 'md'],
     }),
 
@@ -47,6 +52,7 @@ export default defineConfig({
       extensions: ['vue', 'md'],
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      resolvers: [ArcoResolver()],
       dts: true,
     }),
 
