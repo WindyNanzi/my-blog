@@ -18,7 +18,7 @@ const docDirNameMap: Record<string, RouteRecordName> = {
 }
 
 const docRoutes = $computed(() => {
-  const pathRoutesMap: Record<string, RouteRecordRaw[]> = Object
+  const pathRoutesMap: Record<string, (RouteRecordRaw & { docName?: RouteRecordName })[]> = Object
     .keys(docDirNameMap)
     .reduce((record, key) => {
       return {
@@ -27,17 +27,19 @@ const docRoutes = $computed(() => {
       }
     }, {})
 
-  const docParentRoute = routes.find(({ name }) => name === 'docs')
+  const docParentRoute = routes.find(({ path }) => path.includes('docs'))
 
   docParentRoute?.children?.forEach((route: RouteRecordRaw) => {
     const { path } = route
-    const docDirPath = path.slice(0, path.lastIndexOf('/') + 1)
-    const docName = path.slice(path.lastIndexOf('/') + 1)
-    const docPath = `${DOC_DIR}${path}`
-    pathRoutesMap[docDirPath].push({ ...route, name: docName, path: docPath })
+    if (path.includes('/')) {
+      const docDirPath = path.slice(0, path.lastIndexOf('/') + 1)
+      const docName = path.slice(path.lastIndexOf('/') + 1)
+      const docPath = `${DOC_DIR}${path}`
+      pathRoutesMap[docDirPath].push({ ...route, path: docPath, docName: docName! })
+    }
   })
 
-  return Object.keys(pathRoutesMap).map((key): RouteRecordRaw => {
+  return Object.keys(pathRoutesMap).map((key) => {
     return {
       name: docDirNameMap[key],
       children: pathRoutesMap[key],
@@ -47,8 +49,8 @@ const docRoutes = $computed(() => {
   })
 })
 
-function onMenuClick(path: string) {
-  router.push({ path })
+function onMenuClick(name: string) {
+  router.push({ name })
 }
 
 </script>
@@ -59,7 +61,6 @@ function onMenuClick(path: string) {
       min-w-xs
       box-border
       h-screen
-      :default-open-keys="['0']"
       show-collapse-button
       breakpoint="xl"
       @menu-item-click="onMenuClick"
@@ -75,10 +76,10 @@ function onMenuClick(path: string) {
 
         <a-menu-item
           v-for="item in submenu.children"
-          :key="item.path"
+          :key="item.name?.toString()"
           text-left
         >
-          {{ item.name }}
+          {{ item.docName }}
         </a-menu-item>
       </a-sub-menu>
     </a-menu>
