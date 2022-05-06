@@ -3,10 +3,10 @@ import type { RouteRecordName, RouteRecordRaw } from 'vue-router'
 import routes from '~pages'
 
 const DOC_DIR = '/docs/'
-const ALGORITHM = '/docs/algorithm/'
-const CLOUD = '/docs/cloud/'
-const ESSAY = '/docs/essay/'
-const SOURCE_READ = '/docs/source-read/'
+const ALGORITHM = 'algorithm/'
+const CLOUD = 'cloud/'
+const ESSAY = 'essay/'
+const SOURCE_READ = 'source-read/'
 
 const router = useRouter()
 
@@ -27,14 +27,15 @@ const docRoutes = $computed(() => {
       }
     }, {})
 
-  routes
-    .filter(({ path }) => path.startsWith(DOC_DIR))
-    .forEach((route: RouteRecordRaw) => {
-      const { path } = route
-      const docDirPath = path.slice(0, path.lastIndexOf('/') + 1)
-      const docName = path.slice(path.lastIndexOf('/') + 1)
-      pathRoutesMap[docDirPath].push({ ...route, name: docName })
-    })
+  const docParentRoute = routes.find(({ name }) => name === 'docs')
+
+  docParentRoute?.children?.forEach((route: RouteRecordRaw) => {
+    const { path } = route
+    const docDirPath = path.slice(0, path.lastIndexOf('/') + 1)
+    const docName = path.slice(path.lastIndexOf('/') + 1)
+    const docPath = `${DOC_DIR}${path}`
+    pathRoutesMap[docDirPath].push({ ...route, name: docName, path: docPath })
+  })
 
   return Object.keys(pathRoutesMap).map((key): RouteRecordRaw => {
     return {
@@ -55,7 +56,9 @@ function onMenuClick(path: string) {
 <template>
   <nav>
     <a-menu
-      :style="{ width: '200px', height: '100vh' }"
+      min-w-xs
+      box-border
+      h-screen
       :default-open-keys="['0']"
       show-collapse-button
       breakpoint="xl"
@@ -64,6 +67,7 @@ function onMenuClick(path: string) {
       <a-sub-menu
         v-for="(submenu, index) in docRoutes"
         :key="`${index}`"
+        text-left
       >
         <template #title>
           {{ submenu.name }}
@@ -72,6 +76,7 @@ function onMenuClick(path: string) {
         <a-menu-item
           v-for="item in submenu.children"
           :key="item.path"
+          text-left
         >
           {{ item.name }}
         </a-menu-item>
