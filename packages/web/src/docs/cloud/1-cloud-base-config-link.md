@@ -38,7 +38,6 @@ sftp主要用于文件的传输，它有个好用的地方是可以整个文件�
     "context": ".",
     "uploadOnSave": true
 }
-
 ```
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/283876/1644314491485-9048ea92-01f2-4e2b-8739-9e285b6e4dcc.png#clientId=u3e8337cf-ea80-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=582&id=u3d6a6128&margin=%5Bobject%20Object%5D&name=image.png&originHeight=727&originWidth=1110&originalType=binary&ratio=1&rotation=0&showTitle=false&size=72983&status=done&style=none&taskId=u5df7a71e-e1a5-4a93-a82d-6b9be14e043&title=&width=888)<br />配置项说明：
 
