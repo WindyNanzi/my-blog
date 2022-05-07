@@ -60,9 +60,9 @@ function onMenuClick(name: string) {
     <a-menu
       min-w-xs
       box-border
-      h-screen
       show-collapse-button
       breakpoint="xl"
+      class="h-100%"
       @menu-item-click="onMenuClick"
     >
       <a-sub-menu
