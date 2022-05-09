@@ -9,7 +9,7 @@ declare module '@vue/runtime-core' {
     AMenuItem: typeof import('@arco-design/web-vue')['MenuItem']
     ASubMenu: typeof import('@arco-design/web-vue')['SubMenu']
     Counter: typeof import('./src/components/Counter.vue')['default']
-    DocNav: typeof import('./src/components/DocNav.vue')['default']
+    DocSideBar: typeof import('./src/components/docs/DocSideBar.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     README: typeof import('./src/components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
