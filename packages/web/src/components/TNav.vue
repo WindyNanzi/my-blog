@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { isDark, linkHoverClass, toggleDark } from '~/composables'
+import { isDark, toggleDark } from '~/composables'
 
 </script>
 <template>
@@ -11,7 +11,7 @@ import { isDark, linkHoverClass, toggleDark } from '~/composables'
       </a>
     </div>
     <div text-5 text-gray-500 flex gap-4>
-      <a :class="linkHoverClass" href="/docs">Blog</a>
+      <a class="icon-btn" href="/docs">Blog</a>
 
       <button class="icon-btn !outline-none" @click="toggleDark()">
         <div v-if="isDark" i-carbon-moon />
