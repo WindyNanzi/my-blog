@@ -9,6 +9,7 @@ const go = () => {
 </script>
 
 <template>
+  <t-nav />
   <div>
     <div i-carbon-campsite text-4xl inline-block />
     <p>
