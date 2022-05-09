@@ -11,7 +11,7 @@ declare module '@vue/runtime-core' {
     Counter: typeof import('./src/components/Counter.vue')['default']
     DocSideBar: typeof import('./src/components/docs/DocSideBar.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
-    Nav: typeof import('./src/components/Nav.vue')['default']
+    PLUM: typeof import('./src/components/PLUM.vue')['default']
     README: typeof import('./src/components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
