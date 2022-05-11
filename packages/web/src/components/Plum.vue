@@ -15,10 +15,10 @@ interface Branch {
 
 function initCanvas(canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext('2d')!
-  const w = plum.parentElement.clientWidth
-  const h = plum.parentElement.clientHeight
-  canvas.width = w
-  canvas.height = h
+  const w = plum.parentElement?.clientWidth
+  const h = plum.parentElement?.clientHeight
+  canvas.width = w || window.innerWidth
+  canvas.height = h || window.innerHeight
   plum.style.width = `${w}px`
   plum.style.height = `${h}px`
   return ctx
@@ -48,56 +48,87 @@ onMounted(() => {
     }
   }
 
-  const tasks: Function[] = []
+  function plumStart(b: Branch) {
+    const tasks: Function[] = [] // 绘制流程队列
 
-  function step(b: Branch, count = 0) {
-    const endPoint = getEndPoint(b)
-    drawBranch(b)
+    // 绘制流程，每次绘制，都会将下次要绘制流程放到队列里
+    const step = (b: Branch, count = 0) => {
+      const endPoint = getEndPoint(b)
+      drawBranch(b)
 
-    if (Math.random() < 0.5 || count < 4) {
-      tasks.push(() => step({
-        point: endPoint,
-        len: LENGTH,
-        angle: b.angle + 0.2,
-      }, count + 1))
+      if (count >= 180)
+        return
+
+      if (Math.random() < 0.5 || count < 4) {
+        tasks.push(() => step({
+          point: endPoint,
+          len: LENGTH,
+          angle: b.angle + 0.22,
+        }, count + 1))
+      }
+
+      if (Math.random() < 0.5 || count < 4) {
+        tasks.push(() => step({
+          point: endPoint,
+          len: LENGTH,
+          angle: b.angle - 0.22,
+        }, count + 1))
+      }
     }
 
-    if (Math.random() < 0.5 || count < 4) {
-      tasks.push(() => step({
-        point: endPoint,
-        len: LENGTH,
-        angle: b.angle - 0.2,
-      }, count + 1))
+    /** 每一帧，将当前队列清空，绘制出所有线条 */
+    const frame = () => {
+      const fns = [...tasks]
+      tasks.length = 0
+      fns.forEach(fn => fn())
     }
-  }
 
-  function frame() {
-    const steps = [...tasks]
-    tasks.length = 0
-    steps.forEach(fn => fn())
-  }
+    let animationTime = 0 // 实际的帧数
+    const render = () => {
+      requestAnimationFrame(() => {
+        if (tasks.length === 0)
+          return false
 
-  let frameCount = 0
-  function render() {
-    if (frameCount % 5 === 0)
-      frame()
+        if (animationTime % 5 === 0)
+          frame()
 
-    frameCount++
-    requestAnimationFrame(() => render())
+        animationTime++
+        render()
+      })
+    }
+
+    step(b)
+    render()
   }
 
   function init() {
-    ctx.lineWidth = 0.3
-    ctx.strokeStyle = 'rgba(153, 163, 164, 0.5)'
+    ctx.lineWidth = 0.4
+    ctx.strokeStyle = 'rgba(153, 163, 164, 0.4)'
 
-    const startBranch: Branch = {
-      point: { x: (width / 2) * Math.random(), y: 0 },
-      len: LENGTH,
-      angle: -Math.PI * Math.random(),
-    }
+    const startBranches: Branch[] = [
+      {
+        point: { x: width * Math.random(), y: 0 },
+        len: LENGTH,
+        angle: -Math.PI / 2 + (Math.random() - 0.5),
+      },
+      {
+        point: { x: width, y: height * Math.random() },
+        len: LENGTH,
+        angle: 0 + (Math.random() - 0.5),
+      },
+      {
+        point: { x: width * Math.random(), y: height },
+        len: LENGTH,
+        angle: Math.PI / 2 + (Math.random() - 0.5),
+      },
+      {
+        point: { x: 0, y: height * Math.random() },
+        len: LENGTH,
+        angle: Math.PI + (Math.random() - 0.5),
+      },
+    ]
 
-    step(startBranch)
-    render()
+    startBranches.map(b => plumStart(b))
   }
 
   init()
