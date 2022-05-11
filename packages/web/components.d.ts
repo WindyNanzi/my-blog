@@ -5,9 +5,6 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AMenu: typeof import('@arco-design/web-vue')['Menu']
-    AMenuItem: typeof import('@arco-design/web-vue')['MenuItem']
-    ASubMenu: typeof import('@arco-design/web-vue')['SubMenu']
     Counter: typeof import('./src/components/Counter.vue')['default']
     DocSideBar: typeof import('./src/components/docs/DocSideBar.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']

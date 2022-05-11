@@ -1,11 +1,17 @@
 <script setup lang="ts">
+
+const plum: HTMLCanvasElement = $ref()
+
 interface Point {
   x: number
   y: number
-  angle?: number
 }
 
-const plum: HTMLCanvasElement = $ref()
+interface Branch {
+  point: Point
+  len: number
+  angle: number
+}
 
 function initCanvas(canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext('2d')!
@@ -22,25 +28,79 @@ onMounted(() => {
   const ctx = initCanvas(plum)
   const { width, height } = plum
 
-  const l = 10// 线段的长度
+  const LENGTH = 5// 线段的长度
 
-  function drwaline(p1: Point, p2: Point) {
-    ctx.moveTo(p1.x, p1.y)
-    ctx.lineTo(p2.x, p2.y)
+  function drawBranch(b: Branch) {
+    const { point } = b
+    const endPoint = getEndPoint(b)
+
+    ctx.beginPath()
+    ctx.moveTo(point.x, point.y)
+    ctx.lineTo(endPoint.x, endPoint.y)
     ctx.stroke()
   }
 
-  function draw() {
-    ctx.lineWidth = 1
-    ctx.strokeStyle = '#00000040'
-    ctx.beginPath()
-    const startPoint: Point = { x: width / 2, y: height }
-    const endPoint: Point = { x: width / 2, y: height - l }
-
-    drwaline(startPoint, endPoint)
+  function getEndPoint(b: Branch): Point {
+    const { point, len, angle } = b
+    return {
+      x: point.x - Math.cos(angle) * len,
+      y: point.y - Math.sin(angle) * len,
+    }
   }
 
-  draw()
+  const tasks: Function[] = []
+
+  function step(b: Branch, count = 0) {
+    const endPoint = getEndPoint(b)
+    drawBranch(b)
+
+    if (Math.random() < 0.5 || count < 4) {
+      tasks.push(() => step({
+        point: endPoint,
+        len: LENGTH,
+        angle: b.angle + 0.2,
+      }, count + 1))
+    }
+
+    if (Math.random() < 0.5 || count < 4) {
+      tasks.push(() => step({
+        point: endPoint,
+        len: LENGTH,
+        angle: b.angle - 0.2,
+      }, count + 1))
+    }
+  }
+
+  function frame() {
+    const steps = [...tasks]
+    tasks.length = 0
+    steps.forEach(fn => fn())
+  }
+
+  let frameCount = 0
+  function render() {
+    if (frameCount % 5 === 0)
+      frame()
+
+    frameCount++
+    requestAnimationFrame(() => render())
+  }
+
+  function init() {
+    ctx.lineWidth = 1
+    ctx.strokeStyle = 'rgba(153, 163, 164, 0.5)'
+
+    const startBranch: Branch = {
+      point: { x: (width / 2) * Math.random(), y: 0 },
+      len: LENGTH,
+      angle: -Math.PI * Math.random(),
+    }
+
+    step(startBranch)
+    render()
+  }
+
+  init()
 })
 
 </script>
