@@ -87,7 +87,7 @@ onMounted(() => {
   }
 
   function init() {
-    ctx.lineWidth = 1
+    ctx.lineWidth = 0.3
     ctx.strokeStyle = 'rgba(153, 163, 164, 0.5)'
 
     const startBranch: Branch = {
