@@ -5,15 +5,11 @@ import { Starport } from 'vue-starport'
 <template>
   <div flex flex-col w-screen h-screen>
     <t-nav />
-    <starport port="ttk-logo" flex flex-grow justify-center items-center>
-      <i
-        text-96
-        relative
-        top--32
-        block
-        i-carbon-campsite
-      />
-    </starport>
+    <div flex flex-grow justify-center items-center>
+      <starport port="ttk-logo" h-96 w-96 relative top--32>
+        <vitesse text-96 />
+      </starport>
+    </div>
     <plum />
   </div>
 </template>

@@ -15,7 +15,10 @@ declare module '@vue/runtime-core' {
     README: typeof import('./src/components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Starport: typeof import('vue-starport')['Starport']
+    StarportCarrier: typeof import('vue-starport')['StarportCarrier']
     TNav: typeof import('./src/components/TNav.vue')['default']
+    Vitesse: typeof import('./src/components/Vitesse.vue')['default']
   }
 }
 
