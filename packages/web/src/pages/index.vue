@@ -7,7 +7,7 @@ import { Starport } from 'vue-starport'
     <t-nav />
     <div flex flex-grow justify-center items-center>
       <starport port="ttk-logo" h-96 w-96 relative top--32>
-        <vitesse text-96 />
+        <vitesse />
       </starport>
     </div>
     <plum />
