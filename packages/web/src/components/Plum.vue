@@ -26,7 +26,7 @@ function initCanvas(canvas: HTMLCanvasElement) {
 
 onMounted(() => {
   const ctx = initCanvas(plum)
-  const { width, height } = plum
+  const { width: WIDTH, height: HEIGHT } = plum
 
   const LENGTH = 5// 线段的长度
 
@@ -107,22 +107,22 @@ onMounted(() => {
 
     const startBranches: Branch[] = [
       {
-        point: { x: width * Math.random(), y: 0 },
+        point: { x: WIDTH * Math.random(), y: 0 },
         len: LENGTH,
         angle: -Math.PI / 2 + (Math.random() - 0.5),
       },
       {
-        point: { x: width, y: height * Math.random() },
+        point: { x: WIDTH, y: HEIGHT * Math.random() },
         len: LENGTH,
         angle: 0 + (Math.random() - 0.5),
       },
       {
-        point: { x: width * Math.random(), y: height },
+        point: { x: WIDTH * Math.random(), y: HEIGHT },
         len: LENGTH,
         angle: Math.PI / 2 + (Math.random() - 0.5),
       },
       {
-        point: { x: 0, y: height * Math.random() },
+        point: { x: 0, y: HEIGHT * Math.random() },
         len: LENGTH,
         angle: Math.PI + (Math.random() - 0.5),
       },
