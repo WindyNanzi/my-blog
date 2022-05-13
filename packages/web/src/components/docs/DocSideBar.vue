@@ -55,7 +55,7 @@ function onMenuClick(name: string) {
 }
 
 const collapsed = $ref(false)
-let openKeys = $ref(['0'])
+let openKeys = $ref([''])
 
 function onSubMenuClick(key: string) {
   const [openedKey] = openKeys
@@ -102,3 +102,9 @@ function onSubMenuClick(key: string) {
     </a-menu>
   </nav>
 </template>
+
+<style scoped>
+:deep(.arco-menu-vertical .arco-menu-inner){
+  overflow-x: hidden;
+}
+</style>
