@@ -10,11 +10,11 @@ const SOURCE_READ = 'source-read/'
 
 const router = useRouter()
 
-const docDirNameMap: Record<string, RouteRecordName> = {
-  [ALGORITHM]: '算法',
-  [CLOUD]: '云',
-  [ESSAY]: '随笔',
-  [SOURCE_READ]: '源码共读',
+const docDirNameMap: Record<string, { label: string; icon: string }> = {
+  [ALGORITHM]: { label: '算法', icon: '<i block i-carbon-function/>' },
+  [CLOUD]: { label: '云', icon: '<i block i-carbon-cloud/>' },
+  [ESSAY]: { label: '随笔', icon: '<i block i-carbon-account/>' },
+  [SOURCE_READ]: { label: '源码共读', icon: '<i block i-carbon-code/>' },
 }
 
 const docRoutes = $computed(() => {
@@ -41,7 +41,8 @@ const docRoutes = $computed(() => {
 
   return Object.keys(pathRoutesMap).map((key) => {
     return {
-      name: docDirNameMap[key],
+      name: docDirNameMap[key].label,
+      icon: docDirNameMap[key].icon,
       children: pathRoutesMap[key],
       path: key,
       redirect: DOC_DIR,
@@ -53,23 +54,31 @@ function onMenuClick(name: string) {
   router.push({ name })
 }
 
+const collapsed = $ref(false)
+
 </script>
 
 <template>
   <nav>
     <a-menu
-      min-w-xs
       box-border
+      mode="pop"
       show-collapse-button
-      breakpoint="xl"
+      accordion
+      :collapsed="collapsed"
       class="h-100%"
+      @collapse="collapsed = !collapsed"
       @menu-item-click="onMenuClick"
     >
       <a-sub-menu
         v-for="(submenu, index) in docRoutes"
         :key="`${index}`"
+        :class="collapsed ? '' : 'w-64'"
         text-left
       >
+        <template #icon>
+          <div v-html="submenu.icon" />
+        </template>
         <template #title>
           {{ submenu.name }}
         </template>
