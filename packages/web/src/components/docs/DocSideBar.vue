@@ -62,7 +62,6 @@ const collapsed = $ref(false)
   <nav>
     <a-menu
       box-border
-      mode="pop"
       show-collapse-button
       accordion
       :collapsed="collapsed"
