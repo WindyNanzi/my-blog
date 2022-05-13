@@ -55,6 +55,13 @@ function onMenuClick(name: string) {
 }
 
 const collapsed = $ref(false)
+let openKeys = $ref(['0'])
+
+function onSubMenuClick(key: string) {
+  const [openedKey] = openKeys
+  const newOpenKey = key === openedKey ? '' : key
+  openKeys = [newOpenKey]
+}
 
 </script>
 
@@ -65,9 +72,11 @@ const collapsed = $ref(false)
       show-collapse-button
       accordion
       :collapsed="collapsed"
+      :open-keys="openKeys"
       class="h-100%"
       @collapse="collapsed = !collapsed"
       @menu-item-click="onMenuClick"
+      @sub-menu-click="onSubMenuClick"
     >
       <a-sub-menu
         v-for="(submenu, index) in docRoutes"
