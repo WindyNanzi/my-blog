@@ -11,10 +11,10 @@ const SOURCE_READ = 'source-read/'
 const router = useRouter()
 
 const docDirNameMap: Record<string, { label: string; icon: string }> = {
-  [ALGORITHM]: { label: '算法', icon: '<i block i-carbon-function/>' },
-  [CLOUD]: { label: '云', icon: '<i block i-carbon-cloud/>' },
-  [ESSAY]: { label: '随笔', icon: '<i block i-carbon-account/>' },
-  [SOURCE_READ]: { label: '源码共读', icon: '<i block i-carbon-code/>' },
+  [ALGORITHM]: { label: '算法', icon: 'i-carbon-function' },
+  [CLOUD]: { label: '云', icon: 'i-carbon-cloud' },
+  [ESSAY]: { label: '随笔', icon: 'i-carbon-account' },
+  [SOURCE_READ]: { label: '源码共读', icon: 'i-carbon-code' },
 }
 
 const docRoutes = $computed(() => {
@@ -85,7 +85,7 @@ function onSubMenuClick(key: string) {
         text-left
       >
         <template #icon>
-          <div v-html="submenu.icon" />
+          <div :[submenu.icon]="''" />
         </template>
         <template #title>
           {{ submenu.name }}
