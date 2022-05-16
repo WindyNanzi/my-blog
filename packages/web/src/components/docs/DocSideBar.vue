@@ -85,7 +85,7 @@ function onSubMenuClick(key: string) {
         text-left
       >
         <template #icon>
-          <div :[submenu.icon]="''" />
+          <div :class="[submenu.icon]" />
         </template>
         <template #title>
           {{ submenu.name }}
