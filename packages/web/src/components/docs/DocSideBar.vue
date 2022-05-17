@@ -68,13 +68,12 @@ function onSubMenuClick(key: string) {
 <template>
   <nav>
     <a-menu
+      v-model:collapsed="collapsed"
       box-border
-      show-collapse-button
       accordion
-      :collapsed="collapsed"
+      breakpoint="lg"
       :open-keys="openKeys"
       class="h-100%"
-      @collapse="collapsed = !collapsed"
       @menu-item-click="onMenuClick"
       @sub-menu-click="onSubMenuClick"
     >
