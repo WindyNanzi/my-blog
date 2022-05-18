@@ -21,7 +21,14 @@ export default defineConfig({
       scale: 1.2,
       warn: true,
     }),
-    presetTypography(),
+    presetTypography({
+      cssExtend: {
+        // 覆盖掉这个样式，否则 markdown 中设置 --prism-background 是无效的
+        'pre,code': {
+          background: 'var(--prism-background)',
+        },
+      },
+    }),
     presetWebFonts({
       fonts: {
         sans: 'DM Sans',
