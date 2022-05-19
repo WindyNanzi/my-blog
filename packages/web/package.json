@@ -13,7 +13,7 @@
     "@arco-design/web-vue": "^2.26.0",
     "@vueuse/core": "^8.2.5",
     "@vueuse/head": "^0.7.6",
-    "prism-theme-vars": "^0.2.2",
+    "prism-theme-vars": "^0.2.3",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14",
     "vue-starport": "^0.2.10"
