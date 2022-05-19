@@ -12,7 +12,7 @@ import Prism from 'markdown-it-prism'
 import LinkAttributes from 'markdown-it-link-attributes'
 import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 
-const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
+const markdownWrapperClasses = 'prose prose-lg mb-8 m-auto text-left'
 
 export default defineConfig({
   resolve: {
