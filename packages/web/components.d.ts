@@ -8,17 +8,10 @@ declare module '@vue/runtime-core' {
     AMenu: typeof import('@arco-design/web-vue')['Menu']
     AMenuItem: typeof import('@arco-design/web-vue')['MenuItem']
     ASubMenu: typeof import('@arco-design/web-vue')['SubMenu']
-    Counter: typeof import('./src/components/Counter.vue')['default']
-    DocSideBar: typeof import('./src/components/docs/DocSideBar.vue')['default']
-    Footer: typeof import('./src/components/Footer.vue')['default']
-    Plum: typeof import('./src/components/Plum.vue')['default']
-    README: typeof import('./src/components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Starport: typeof import('vue-starport')['Starport']
     StarportCarrier: typeof import('vue-starport')['StarportCarrier']
-    TNav: typeof import('./src/components/TNav.vue')['default']
-    Vitesse: typeof import('./src/components/Vitesse.vue')['default']
   }
 }
 
